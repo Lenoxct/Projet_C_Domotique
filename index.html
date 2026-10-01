@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: sans-serif; background: #1e1e2e; color: #cdd6f4; text-align: center; padding-top: 50px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; border: none; background: #89b4fa; }
+    </style>
+</head>
+<body>
+    <h1>Interface HTML en C</h1>
+    <button onclick="appelerC()">Cliquer ici</button>
+    <p id="resultat"></p>
+
+    <script>
+        function appelerC() {
+            // Appelle la fonction C liée au nom "helloFromC"
+            window.helloFromC("Monde").then(reponse => {
+                document.getElementById("resultat").innerText = reponse;
+            });
+        }
+    </script>
+</body>
+</html>
