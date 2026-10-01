@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build WebView",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-Igit_webview/webview/core/include/webview",
+                "main.c",
+                "-o", "app.exe",
+                "-lole32", "-loleaut32", "-luuid"
+            ],
+            "group": { "kind": "build", "isDefault": true }
+        }
+    ]
+}
