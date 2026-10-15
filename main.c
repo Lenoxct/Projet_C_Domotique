@@ -17,9 +17,9 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine,
 int main(void) {
 #endif
   webview_t w = webview_create(0, NULL);
-  webview_set_title(w, "Basic Example");
-  webview_set_size(w, 480, 320, WEBVIEW_HINT_NONE);
-  webview_set_html(w, "Thanks for using webview!");
+  webview_set_title(w, "Logiciel domotique");
+  webview_set_size(w, 1000, 500, WEBVIEW_HINT_NONE);
+  webview_navigate(w, "file:///C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/index.html");
   webview_run(w);
   webview_destroy(w);
   return 0;
