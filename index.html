@@ -1,24 +1,270 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="h-full">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domotique Control - Hub d'accueil</title>
+    <!-- Tailwind CSS pour la mise en page et le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        body { font-family: sans-serif; background: #1e1e2e; color: #cdd6f4; text-align: center; padding-top: 50px; }
-        button { padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; border: none; background: #89b4fa; }
+        /* Styles personnalisés pour animations et effets */
+        body {
+            background-color: #eef2f6; /* Fond gris doux et moderne */
+        }
+        
+        .section-card {
+            background-color: #ffffff; /* Couleur identique pour toutes les sections */
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Effet de pulsation pour l'indicateur d'état */
+        .pulse-dot {
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Interface HTML en C</h1>
-    <button onclick="appelerC()">Cliquer ici</button>
-    <p id="resultat"></p>
+    <div id="sections-container" class="space-y-2">
 
-    <script>
-        function appelerC() {
-            // Appelle la fonction C liée au nom "helloFromC"
-            window.helloFromC("Monde").then(reponse => {
-                document.getElementById("resultat").innerText = reponse;
-            });
-        }
-    </script>
+            <!-- 1. Connexion au serveur domotique -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Connexion au serveur domotique')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 group-hover:border-brand-500 transition-colors overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <!-- Vous pourrez remplacer la balise <i ...> ci-dessous par votre propre balise <img> : -->
+                            <!-- <img src="chemin/vers/votre-image.jpg" alt="Connexion" class="w-full h-full object-cover"> -->
+                            <i class="fa-solid fa-server text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Connexion au serveur domotique</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200 group">
+                            <span class="hidden sm:inline mr-2">Se connecter</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Pilotage direct du bâtiment -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Pilotage direct du bâtiment')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-sliders text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Pilotage direct du bâtiment</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Piloter</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Gestion des scénarios -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Gestion des scénarios')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-wand-magic-sparkles text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Gestion des scénarios</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Gérer</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Pilotage des caméras -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Pilotage des caméras')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-video text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Pilotage des caméras</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Accéder</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Mosaïque de caméras -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Mosaïque de caméras')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-border-all text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Mosaïque de caméras</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Afficher</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Statistiques -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Statistiques')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-chart-line text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Statistiques</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Consulter</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Configuration de l'application -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Configuration de l\'application')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-gear text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Configuration de l'application</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Configurer</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Manuel utilisateur -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('Manuel utilisateur')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-book-open text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">Manuel utilisateur</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Lire</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. A propos -->
+            <div class="section-card rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:border-brand-500/40 cursor-pointer" onclick="handleCardClick('A propos')">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4 sm:space-x-5 min-w-0">
+                        <!-- Emplacement Réservé Carré pour l'Image Future -->
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 flex-shrink-0 flex flex-col items-center justify-center text-slate-400 overflow-hidden relative" title="Espace réservé pour image 80x80">
+                            <i class="fa-solid fa-circle-info text-xl sm:text-2xl text-slate-400"></i>
+                            <span class="text-[9px] uppercase font-bold tracking-wider mt-1 text-slate-400">Image</span>
+                        </div>
+                        <!-- Texte & Description -->
+                        <div class="min-w-0">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-800 truncate">A propos</h3>
+                        </div>
+                    </div>
+                    <!-- Bouton d'action -->
+                    <div class="flex-shrink-0">
+                        <button class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-100 text-slate-700 hover:bg-brand-600 hover:text-white transition-colors duration-200">
+                            <span class="hidden sm:inline mr-2">Découvrir</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 </body>
-</html>
