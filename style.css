@@ -1,0 +1,240 @@
+/* ==========================================================================
+RESET ET VARIABLES GLOBALES
+========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Palette de couleurs */
+    --bg-body: #eef2f6;
+    --bg-card: #ffffff;
+    --bg-image-placeholder: #f1f5f9;
+    --border-placeholder: #cbd5e1;
+            
+    --text-main: #0f172a;
+    --text-title: #1e293b;
+    --text-muted: #64748b;
+    --text-placeholder: #94a3b8;
+    
+    --accent-color: #2563eb;
+    --accent-hover: #1d4ed8;
+    --card-border: rgba(226, 232, 240, 0.8);
+    
+    /* Ombres */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+    --shadow-hover: 0 12px 20px -5px rgba(37, 99, 235, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+    
+    /* Typography & Borders */
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radius-card: 16px;
+    --radius-img: 12px;
+    --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem 1.25rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   CONTENEUR PRINCIPAL & EN-TÊTE ÉPURÉ
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--text-title);
+    letter-spacing: -0.025em;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    }
+
+/* ==========================================================================
+    GRILLE DE BOUTONS (CÔTE À CÔTE RESPONSIVE)
+    ========================================================================== */
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+/* Responsive Breakpoints : 2 colonnes sur tablette, 3 colonnes sur desktop */
+@media (min-width: 640px) {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    header h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* ==========================================================================
+    STRUCTURE D'UNE CARTE / BOUTON
+    ========================================================================== */
+.menu-card {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-card);
+    padding: 1.25rem;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effets interactifs au survol */
+.menu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+.menu-card:active {
+    transform: translateY(-1px);
+}
+
+/* Indicateur visuel latéral subtil */
+.menu-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--accent-color);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.menu-card:hover::before {
+    opacity: 1;
+}
+
+/* ==========================================================================
+    CARRÉ RÉSERVÉ À GAUCHE (PLACEHOLDER IMAGE)
+    ========================================================================== */
+.image-placeholder {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    min-height: 72px;
+    background-color: var(--bg-image-placeholder);
+    border: 2px dashed var(--border-placeholder);
+    border-radius: var(--radius-img);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+}
+
+.placeholder-text {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-placeholder);
+    margin-top: 2px;
+    transition: var(--transition);
+}
+
+.menu-card:hover .image-placeholder {
+    border-color: var(--accent-color);
+    background-color: #eff6ff;
+}
+
+.menu-card:hover .placeholder-icon {
+    stroke: var(--accent-color);
+}
+
+.menu-card:hover .placeholder-text {
+    color: var(--accent-color);
+}
+
+/* Si vous insérez une vraie balise <img> dans le futur : */
+.image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+    CONTENU À DROITE (TITRE + TEXTE DESCRIPTIF)
+    ========================================================================== */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0; /* Permet la gestion de l'ellipse de texte si besoin */
+    flex: 1;
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-title);
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    transition: var(--transition);
+}
+
+.menu-card:hover .card-title {
+    color: var(--accent-color);
+}
+
+/* Fleche d'action optionnelle à droite */
+.card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-placeholder);
+    transition: var(--transition);
+    opacity: 0.5;
+}
+
+.menu-card:hover .card-arrow {
+    color: var(--accent-color);
+    opacity: 1;
+    transform: translateX(3px);
+}

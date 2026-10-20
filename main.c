@@ -18,7 +18,7 @@ int main(void) {
 #endif
   webview_t w = webview_create(0, NULL);
   webview_set_title(w, "Logiciel domotique");
-  webview_set_size(w, 1000, 500, WEBVIEW_HINT_NONE);
+  webview_set_size(w, 1500, 650, WEBVIEW_HINT_NONE);
   webview_navigate(w, "file:///C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/index.html");
   webview_run(w);
   webview_destroy(w);
