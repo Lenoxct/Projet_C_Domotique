@@ -17,14 +17,14 @@ int main() {
     int sock_fd;
     struct sockaddr_in server_addr;
 
-    // Les 13 octets exacts observés dans Wireshark (en hexadécimal)
+    // Les 13 octets observés dans Wireshark (en hexadécimal) pour fermer un volet
     unsigned char payload[] = {
         0xc0, 0xa8, 0x00, 0x71, 
         0x00, 0x00, 0x00, 0x00, 
         0x00, 0x01, 0x01, 0x01, 0x00
     };
 
-    //Recuperation du port du serveur
+    //Recuperation du port du serveur avec une commande powershell
     char portStr[16] = {0};
     char cmd[] =
         "powershell -NoProfile -Command \""
@@ -43,7 +43,7 @@ int main() {
         printf("Aucun resultat\n");
     }
 
-    //Je défini la variable port qui est le port mais de type integer cette fois
+    //Je défini la variable port de type integer cette fois-ci
     char *end;
     long port = strtol(portStr, &end, 10);
     printf("%ld\n", port);
@@ -68,7 +68,7 @@ int main() {
         close(sock_fd);
         return 1;
     }
-    printf("Connecte au serveur avec succes !\n");
+    printf("Connection au serveur avec succes !\n");
 
     // 4. Envoi des 13 octets de la trame
     ssize_t bytes_sent = send(sock_fd, payload, sizeof(payload), 0);
