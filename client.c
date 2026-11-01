@@ -60,7 +60,7 @@ int main() {
     // 2. Configuration de l'adresse du serveur
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(port);
-    server_addr.sin_addr.s_addr = inet_addr("192.168.0.28");
+    server_addr.sin_addr.s_addr = inet_addr("192.168.0.27");
 
     // 3. Connexion au serveur
     if (connect(sock_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
@@ -80,5 +80,6 @@ int main() {
 
     // 5. Fermeture de la socket
     close(sock_fd);
+    WSACleanup();
     return 0;
 }
