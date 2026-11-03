@@ -1,99 +1,18 @@
--- phpMyAdmin SQL Dump
--- version 5.2.3
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3306
--- Généré le : mer. 21 oct. 2026 à 20:44
--- Version du serveur : 8.4.7
--- Version de PHP : 8.3.28
+PRAGMA foreign_keys = ON;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `domotique`
---
+BEGIN TRANSACTION;
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `climatisations`
---
-
-DROP TABLE IF EXISTS `climatisations`;
-CREATE TABLE IF NOT EXISTS `climatisations` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ip_automate` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entree_automate` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `etat` enum('allumé','éteint','en panne') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `localisation_id` int UNSIGNED NOT NULL,
-  `mode` tinyint(1) NOT NULL COMMENT '0 = climatisation, 1 = chauffage',
-  PRIMARY KEY (`id`),
-  KEY `idx_climatisations_localisation` (`localisation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `climatisations`
---
-
-INSERT INTO `climatisations` (`id`, `ip_automate`, `entree_automate`, `etat`, `description`, `localisation_id`, `mode`) VALUES
-(1, '192.168.0.102', '00000001', 'allumé', 'Suite parentale - Climatisation réversible', 12, 1),
-(2, '192.168.0.102', '00000010', 'allumé', 'Suite parentale - Salle de bain - Climatisation réversible', 13, 1),
-(3, '192.168.0.102', '00000011', 'en panne', 'Suite parentale - Dressing - Climatisation réversible', 14, 1),
-(4, '192.168.0.102', '00000100', 'allumé', 'Chambre invités - Climatisation réversible', 9, 1),
-(5, '192.168.0.102', '00000101', 'allumé', 'Chambre invités - Salle de bain - Climatisation réversible', 10, 1),
-(6, '192.168.0.102', '00000110', 'allumé', 'Chambre invités - Dressing - Climatisation réversible', 11, 1),
-(7, '192.168.0.102', '00000111', 'éteint', 'Garages nord - Climatisation réversible', 19, 1),
-(8, '192.168.0.102', '00001000', 'éteint', 'Garages ouest - Climatisation réversible', 20, 1),
-(9, '192.168.0.102', '00001001', 'allumé', 'WC - Climatisation réversible', 24, 1),
-(10, '192.168.0.102', '00001010', 'allumé', 'Salon - Climatisation réversible', 23, 1),
-(11, '192.168.0.102', '00001011', 'allumé', 'Hall nord - Climatisation réversible', 21, 1),
-(12, '192.168.0.102', '00001100', 'allumé', 'Escalier central - Climatisation réversible', 17, 1),
-(13, '192.168.0.102', '00001101', 'allumé', 'Cuisine - Climatisation réversible', 16, 1),
-(14, '192.168.0.102', '00001110', 'allumé', 'Salle à manger - Climatisation réversible', 22, 1),
-(15, '192.168.0.102', '00001111', 'allumé', 'Bibliothèque - Climatisation réversible', 8, 1),
-(16, '192.168.0.112', '00000001', 'allumé', 'Bureau - Climatisation réversible', 29, 1),
-(17, '192.168.0.112', '00000010', 'allumé', 'Chambre nord est - Climatisation réversible', 30, 1),
-(18, '192.168.0.112', '00000011', 'allumé', 'Chambre nord est - Salle de bain - Climatisation réversible', 31, 1),
-(19, '192.168.0.112', '00000100', 'allumé', 'Chambre sud est - Climatisation réversible', 35, 1),
-(20, '192.168.0.112', '00000101', 'allumé', 'Chambre sud est - Salle de bain - Climatisation réversible', 37, 1),
-(21, '192.168.0.112', '00000110', 'allumé', 'Chambre sud est - Dressing - Climatisation réversible', 36, 1),
-(22, '192.168.0.112', '00000111', 'allumé', 'Chambre sud ouest - Climatisation réversible', 38, 1),
-(23, '192.168.0.112', '00001000', 'allumé', 'Chambre sud ouest - Dressing - Climatisation réversible', 39, 1),
-(24, '192.168.0.112', '00001001', 'en panne', 'Chambre sud ouest - Salle de bain - Climatisation réversible', 40, 1),
-(25, '192.168.0.112', '00001010', 'allumé', 'Salle de jeux - Climatisation réversible', 45, 1),
-(26, '192.168.0.112', '00001011', 'allumé', 'WC - Climatisation réversible', 26, 1),
-(27, '192.168.0.112', '00001100', 'allumé', 'Chambre nord ouest - Climatisation réversible', 32, 1),
-(28, '192.168.0.112', '00001101', 'allumé', 'Chambre nord ouest - Dressing - Climatisation réversible', 33, 1),
-(29, '192.168.0.112', '00001110', 'allumé', 'Chambre nord ouest - Salle de bain - Climatisation réversible', 34, 1),
-(30, '192.168.0.112', '00001111', 'en panne', 'Couloir circulaire - Climatisation réversible', 42, 1);
-
+-- Table : localisations
 -- --------------------------------------------------------
 
---
--- Structure de la table `localisations`
---
+DROP TABLE IF EXISTS "localisations";
+CREATE TABLE "localisations" (
+  "id" INTEGER PRIMARY KEY,
+  "description" TEXT NOT NULL
+);
 
-DROP TABLE IF EXISTS `localisations`;
-CREATE TABLE IF NOT EXISTS `localisations` (
-  `id` int UNSIGNED NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `localisations`
---
-
-INSERT INTO `localisations` (`id`, `description`) VALUES
+INSERT INTO "localisations" ("id", "description") VALUES
 (1, 'Extérieur - Terrasse'),
 (2, 'Extérieur - Entrées terrasse'),
 (3, 'Extérieur - Hall sud'),
@@ -142,29 +61,74 @@ INSERT INTO `localisations` (`id`, `description`) VALUES
 (200, 'Rez-de-chaussée - Placard');
 
 -- --------------------------------------------------------
+-- Table : climatisations
+-- --------------------------------------------------------
 
---
--- Structure de la table `luminaires`
---
+DROP TABLE IF EXISTS "climatisations";
+CREATE TABLE "climatisations" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "ip_automate" TEXT NOT NULL,
+  "entree_automate" TEXT NOT NULL,
+  "etat" TEXT NOT NULL CHECK ("etat" IN ('allumé', 'éteint', 'en panne')),
+  "description" TEXT NOT NULL,
+  "localisation_id" INTEGER NOT NULL,
+  "mode" INTEGER NOT NULL, -- 0 = climatisation, 1 = chauffage
+  FOREIGN KEY ("localisation_id") REFERENCES "localisations" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
 
-DROP TABLE IF EXISTS `luminaires`;
-CREATE TABLE IF NOT EXISTS `luminaires` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ip_automate` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entree_automate` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `etat` enum('allumé','éteint','en panne') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `localisation_id` int UNSIGNED NOT NULL,
-  `puissance_w` decimal(6,1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_luminaires_localisation` (`localisation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE INDEX "idx_climatisations_localisation" ON "climatisations" ("localisation_id");
 
---
--- Déchargement des données de la table `luminaires`
---
+INSERT INTO "climatisations" ("id", "ip_automate", "entree_automate", "etat", "description", "localisation_id", "mode") VALUES
+(1, '192.168.0.102', '00000001', 'allumé', 'Suite parentale - Climatisation réversible', 12, 1),
+(2, '192.168.0.102', '00000010', 'allumé', 'Suite parentale - Salle de bain - Climatisation réversible', 13, 1),
+(3, '192.168.0.102', '00000011', 'en panne', 'Suite parentale - Dressing - Climatisation réversible', 14, 1),
+(4, '192.168.0.102', '00000100', 'allumé', 'Chambre invités - Climatisation réversible', 9, 1),
+(5, '192.168.0.102', '00000101', 'allumé', 'Chambre invités - Salle de bain - Climatisation réversible', 10, 1),
+(6, '192.168.0.102', '00000110', 'allumé', 'Chambre invités - Dressing - Climatisation réversible', 11, 1),
+(7, '192.168.0.102', '00000111', 'éteint', 'Garages nord - Climatisation réversible', 19, 1),
+(8, '192.168.0.102', '00001000', 'éteint', 'Garages ouest - Climatisation réversible', 20, 1),
+(9, '192.168.0.102', '00001001', 'allumé', 'WC - Climatisation réversible', 24, 1),
+(10, '192.168.0.102', '00001010', 'allumé', 'Salon - Climatisation réversible', 23, 1),
+(11, '192.168.0.102', '00001011', 'allumé', 'Hall nord - Climatisation réversible', 21, 1),
+(12, '192.168.0.102', '00001100', 'allumé', 'Escalier central - Climatisation réversible', 17, 1),
+(13, '192.168.0.102', '00001101', 'allumé', 'Cuisine - Climatisation réversible', 16, 1),
+(14, '192.168.0.102', '00001110', 'allumé', 'Salle à manger - Climatisation réversible', 22, 1),
+(15, '192.168.0.102', '00001111', 'allumé', 'Bibliothèque - Climatisation réversible', 8, 1),
+(16, '192.168.0.112', '00000001', 'allumé', 'Bureau - Climatisation réversible', 29, 1),
+(17, '192.168.0.112', '00000010', 'allumé', 'Chambre nord est - Climatisation réversible', 30, 1),
+(18, '192.168.0.112', '00000011', 'allumé', 'Chambre nord est - Salle de bain - Climatisation réversible', 31, 1),
+(19, '192.168.0.112', '00000100', 'allumé', 'Chambre sud est - Climatisation réversible', 35, 1),
+(20, '192.168.0.112', '00000101', 'allumé', 'Chambre sud est - Salle de bain - Climatisation réversible', 37, 1),
+(21, '192.168.0.112', '00000110', 'allumé', 'Chambre sud est - Dressing - Climatisation réversible', 36, 1),
+(22, '192.168.0.112', '00000111', 'allumé', 'Chambre sud ouest - Climatisation réversible', 38, 1),
+(23, '192.168.0.112', '00001000', 'allumé', 'Chambre sud ouest - Dressing - Climatisation réversible', 39, 1),
+(24, '192.168.0.112', '00001001', 'en panne', 'Chambre sud ouest - Salle de bain - Climatisation réversible', 40, 1),
+(25, '192.168.0.112', '00001010', 'allumé', 'Salle de jeux - Climatisation réversible', 45, 1),
+(26, '192.168.0.112', '00001011', 'allumé', 'WC - Climatisation réversible', 26, 1),
+(27, '192.168.0.112', '00001100', 'allumé', 'Chambre nord ouest - Climatisation réversible', 32, 1),
+(28, '192.168.0.112', '00001101', 'allumé', 'Chambre nord ouest - Dressing - Climatisation réversible', 33, 1),
+(29, '192.168.0.112', '00001110', 'allumé', 'Chambre nord ouest - Salle de bain - Climatisation réversible', 34, 1),
+(30, '192.168.0.112', '00001111', 'en panne', 'Couloir circulaire - Climatisation réversible', 42, 1);
 
-INSERT INTO `luminaires` (`id`, `ip_automate`, `entree_automate`, `etat`, `description`, `localisation_id`, `puissance_w`) VALUES
+-- --------------------------------------------------------
+-- Table : luminaires
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS "luminaires";
+CREATE TABLE "luminaires" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "ip_automate" TEXT NOT NULL,
+  "entree_automate" TEXT NOT NULL,
+  "etat" TEXT NOT NULL CHECK ("etat" IN ('allumé', 'éteint', 'en panne')),
+  "description" TEXT NOT NULL,
+  "localisation_id" INTEGER NOT NULL,
+  "puissance_w" REAL NOT NULL,
+  FOREIGN KEY ("localisation_id") REFERENCES "localisations" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE INDEX "idx_luminaires_localisation" ON "luminaires" ("localisation_id");
+
+INSERT INTO "luminaires" ("id", "ip_automate", "entree_automate", "etat", "description", "localisation_id", "puissance_w") VALUES
 (1, '192.168.0.100', '00111110', 'éteint', 'Garages nord - Projecteur extérieur entrée véhicule nord', 6, 500.0),
 (2, '192.168.0.100', '00111111', 'éteint', 'Garages nord - Projecteur extérieur entrée véhicule sud', 6, 500.0),
 (3, '192.168.0.100', '01000000', 'éteint', 'Garages nord - Hublot entrée est', 6, 200.0),
@@ -173,7 +137,7 @@ INSERT INTO `luminaires` (`id`, `ip_automate`, `entree_automate`, `etat`, `descr
 (6, '192.168.0.100', '01000011', 'éteint', 'Garages ouest - Hublot entrée ouest', 5, 200.0),
 (7, '192.168.0.100', '01000100', 'éteint', 'Terrasse - Hublot porte chambre invités', 2, 200.0),
 (8, '192.168.0.100', '01000101', 'éteint', 'Terrasse - Hublot porte cuisine', 2, 200.0),
-(9, '192.168.0.100', '01000110', 'éteint', 'Terrasse - Hublot cuisine d\'été', 1, 200.0),
+(9, '192.168.0.100', '01000110', 'éteint', 'Terrasse - Hublot cuisine d''été', 1, 200.0),
 (10, '192.168.0.100', '01000111', 'éteint', 'Terrasse - Ensemble de spots immergés piscine', 4, 200.0),
 (11, '192.168.0.100', '01001000', 'éteint', 'Hall sud - Hublot ouest', 3, 200.0),
 (12, '192.168.0.100', '01001001', 'éteint', 'Hall sud - Hublot est', 3, 200.0),
@@ -290,56 +254,46 @@ INSERT INTO `luminaires` (`id`, `ip_automate`, `entree_automate`, `etat`, `descr
 (123, '192.168.0.110', '00110000', 'éteint', 'Balcon - Applique est', 28, 100.0);
 
 -- --------------------------------------------------------
+-- Table : prises
+-- --------------------------------------------------------
 
---
--- Structure de la table `prises`
---
+DROP TABLE IF EXISTS "prises";
+CREATE TABLE "prises" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "ip_automate" TEXT NOT NULL,
+  "entree_automate" TEXT NOT NULL,
+  "etat" TEXT NOT NULL CHECK ("etat" IN ('allumé', 'éteint', 'en panne')),
+  "description" TEXT NOT NULL,
+  "localisation_id" INTEGER NOT NULL,
+  FOREIGN KEY ("localisation_id") REFERENCES "localisations" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
 
-DROP TABLE IF EXISTS `prises`;
-CREATE TABLE IF NOT EXISTS `prises` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ip_automate` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entree_automate` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `etat` enum('allumé','éteint','en panne') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `localisation_id` int UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_prises_localisation` (`localisation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE INDEX "idx_prises_localisation" ON "prises" ("localisation_id");
 
---
--- Déchargement des données de la table `prises`
---
-
-INSERT INTO `prises` (`id`, `ip_automate`, `entree_automate`, `etat`, `description`, `localisation_id`) VALUES
+INSERT INTO "prises" ("id", "ip_automate", "entree_automate", "etat", "description", "localisation_id") VALUES
 (1, '192.168.0.101', '00000001', 'allumé', 'Cuisine - Prise ouest porte terrasse', 16),
 (2, '192.168.0.101', '00000010', 'allumé', 'Cuisine - Prise est porte terrasse', 16),
 (3, '192.168.0.101', '00000011', 'allumé', 'Cuisine - Prise nord îlot central', 16),
 (4, '192.168.0.101', '00000100', 'allumé', 'Cuisine - Prise sud îlot central', 16);
 
 -- --------------------------------------------------------
+-- Table : volets
+-- --------------------------------------------------------
 
---
--- Structure de la table `volets`
---
+DROP TABLE IF EXISTS "volets";
+CREATE TABLE "volets" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "ip_automate" TEXT NOT NULL,
+  "entree_automate" TEXT NOT NULL,
+  "etat" TEXT NOT NULL CHECK ("etat" IN ('allumé', 'éteint', 'en panne')),
+  "description" TEXT NOT NULL,
+  "localisation_id" INTEGER NOT NULL,
+  FOREIGN KEY ("localisation_id") REFERENCES "localisations" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
 
-DROP TABLE IF EXISTS `volets`;
-CREATE TABLE IF NOT EXISTS `volets` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ip_automate` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `entree_automate` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `etat` enum('allumé','éteint','en panne') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `localisation_id` int UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_volets_localisation` (`localisation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE INDEX "idx_volets_localisation" ON "volets" ("localisation_id");
 
---
--- Déchargement des données de la table `volets`
---
-
-INSERT INTO `volets` (`id`, `ip_automate`, `entree_automate`, `etat`, `description`, `localisation_id`) VALUES
+INSERT INTO "volets" ("id", "ip_automate", "entree_automate", "etat", "description", "localisation_id") VALUES
 (1, '192.168.0.103', '00000001', 'allumé', 'Hall nord - Volet roulant grande baie vitrée', 21),
 (2, '192.168.0.103', '00000010', 'allumé', 'Garages nord - Volet roulant fenêtre est', 19),
 (3, '192.168.0.103', '00000011', 'allumé', 'Garages nord - Volet roulant fenêtre nord-est', 19),
@@ -395,35 +349,4 @@ INSERT INTO `volets` (`id`, `ip_automate`, `entree_automate`, `etat`, `descripti
 (53, '192.168.0.113', '00001100', 'allumé', 'Chambre NO - Volet roulant fenêtre nord', 32),
 (54, '192.168.0.113', '00001101', 'allumé', 'Hall nord - Volet roulant grande baie vitrée', 44);
 
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `climatisations`
---
-ALTER TABLE `climatisations`
-  ADD CONSTRAINT `fk_climatisations_localisation` FOREIGN KEY (`localisation_id`) REFERENCES `localisations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `luminaires`
---
-ALTER TABLE `luminaires`
-  ADD CONSTRAINT `fk_luminaires_localisation` FOREIGN KEY (`localisation_id`) REFERENCES `localisations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `prises`
---
-ALTER TABLE `prises`
-  ADD CONSTRAINT `fk_prises_localisation` FOREIGN KEY (`localisation_id`) REFERENCES `localisations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `volets`
---
-ALTER TABLE `volets`
-  ADD CONSTRAINT `fk_volets_localisation` FOREIGN KEY (`localisation_id`) REFERENCES `localisations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
