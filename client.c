@@ -25,8 +25,8 @@ int main() {
     char portStr[16] = {0};
     char cmd[] =
         "powershell -NoProfile -Command \""
-        "$p = (Get-Process javaw -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id -First 1); "
-        "if ($p) { (Get-NetTCPConnection -State Listen -OwningProcess $p -ErrorAction SilentlyContinue | Select-Object -ExpandProperty LocalPort -First 1) }"
+        "$p = Get-Process java,javaw -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like 'SimDom*' }; "
+        "$p | ForEach-Object { Get-NetTCPConnection -State Listen -OwningProcess $_.Id -ErrorAction SilentlyContinue } | Select-Object -First 1 -ExpandProperty LocalPort"
         "\"";
 
     FILE *fp = _popen(cmd, "r");
