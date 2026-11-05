@@ -238,3 +238,150 @@ header p {
     opacity: 1;
     transform: translateX(3px);
 }
+
+.device-panel {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+}
+
+.panel-heading,
+.device-toolbar,
+.device-card,
+.device-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.panel-heading {
+    margin-bottom: 1.25rem;
+}
+
+.panel-heading p,
+.device-card p {
+    color: var(--text-muted);
+}
+
+.device-toolbar {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.device-toolbar select,
+.connection-panel input,
+.secondary-button,
+.state-button {
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border-placeholder);
+    border-radius: 0.5rem;
+    background: white;
+    color: var(--text-main);
+    font: inherit;
+}
+
+.connection-panel form {
+    display: grid;
+    grid-template-columns: minmax(10rem, 1fr) minmax(8rem, 12rem) auto;
+    align-items: end;
+    gap: 0.75rem;
+}
+
+.connection-panel form label {
+    grid-row: 1;
+    color: var(--text-title);
+    font-weight: 600;
+}
+
+.connection-panel form label:first-of-type {
+    grid-column: 1;
+}
+
+.connection-panel form label:nth-of-type(2) {
+    grid-column: 2;
+}
+
+.connection-panel form input:first-of-type {
+    grid-column: 1;
+}
+
+.connection-panel form input:nth-of-type(2) {
+    grid-column: 2;
+}
+
+.connection-panel form button {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.secondary-button,
+.state-button {
+    cursor: pointer;
+}
+
+.state-button {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.state-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.database-status {
+    margin: 0.75rem 0;
+    color: var(--text-muted);
+}
+
+.device-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.device-card {
+    padding: 1rem;
+    border: 1px solid var(--card-border);
+    border-radius: 0.75rem;
+}
+
+.device-card h3 {
+    font-size: 1rem;
+}
+
+.device-state {
+    white-space: nowrap;
+    color: var(--text-muted);
+}
+
+.device-state.failed {
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    .panel-heading,
+    .device-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .connection-panel form {
+        grid-template-columns: 1fr;
+    }
+
+    .connection-panel form label,
+    .connection-panel form label:first-of-type,
+    .connection-panel form label:nth-of-type(2),
+    .connection-panel form input:first-of-type,
+    .connection-panel form input:nth-of-type(2),
+    .connection-panel form button {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}

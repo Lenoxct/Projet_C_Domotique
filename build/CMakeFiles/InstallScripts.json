@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/cmake_install.cmake",
+		"C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/webview-build/cmake_install.cmake",
+		"C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/webview-build/compatibility/cmake_install.cmake",
+		"C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/webview-build/core/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

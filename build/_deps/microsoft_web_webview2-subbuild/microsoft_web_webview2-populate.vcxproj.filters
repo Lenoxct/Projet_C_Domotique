@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\87572575b59484fcbe14d4739ba104b3\microsoft_web_webview2-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\19acd02504d9218df19fce6c7775319c\microsoft_web_webview2-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\8e901f913502d925358fafacc9c144ec\microsoft_web_webview2-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\microsoft_web_webview2-subbuild\CMakeFiles\microsoft_web_webview2-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{2202E9C7-4D7E-3629-B348-20AE6B5F74C6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

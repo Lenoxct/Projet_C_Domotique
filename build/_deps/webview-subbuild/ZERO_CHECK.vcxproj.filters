@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\9178bf4265b2c71fae1f5c68262a62f3\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F6981E3F-3B9D-3F53-8D9D-F2FAA794B63B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

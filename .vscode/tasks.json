@@ -8,10 +8,39 @@
             "args": [
                 "-Igit_webview/webview/core/include/webview",
                 "main.c",
-                "-o", "app.exe",
-                "-lole32", "-loleaut32", "-luuid"
+                "-o",
+                "app.exe",
+                "-lole32",
+                "-loleaut32",
+                "-luuid"
             ],
-            "group": { "kind": "build", "isDefault": true }
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc.exe générer le fichier actif",
+            "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "C:\\msys64\\ucrt64\\bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tâche générée par le débogueur."
         }
     ]
 }

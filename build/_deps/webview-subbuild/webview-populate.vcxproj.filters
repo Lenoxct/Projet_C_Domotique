@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\295b8ad123b3fcc2cd432b71c0dde401\webview-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\8b199476d8cd3b1c3af88025793d0fd2\webview-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\9178bf4265b2c71fae1f5c68262a62f3\webview-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\build\_deps\webview-subbuild\CMakeFiles\webview-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F6981E3F-3B9D-3F53-8D9D-F2FAA794B63B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

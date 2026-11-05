@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\database.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\sqlite3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A4E41B2-9EFF-36B5-AF33-7739CF240744}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

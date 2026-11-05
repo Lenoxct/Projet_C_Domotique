@@ -1,0 +1,10 @@
+^C:\FICHIER ESGI\CODE\C\PROJET_C_DOMOTIQUE\BUILD\CMAKEFILES\3B4EB5561A888E5C2D09C660288D7D9D\GENERATE.STAMP.RULE
+setlocal
+C:\Users\MXSEC\AppData\Local\Microsoft\WinGet\Packages\Kitware.CMake_Microsoft.Winget.Source_8wekyb3d8bbwe\cmake-4.4.4-windows-x86_64\bin\cmake.exe "-SC:/Fichier ESGI/Code/C/Projet_C_Domotique" "-BC:/Fichier ESGI/Code/C/Projet_C_Domotique/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/domotique.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
