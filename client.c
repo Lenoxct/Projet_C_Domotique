@@ -26,7 +26,7 @@ int main() {
     char cmd[] =
         "powershell -NoProfile -Command \""
         "$p = Get-Process java,javaw -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like 'SimDom*' }; "
-        "$p | ForEach-Object { Get-NetTCPConnection -State Listen -OwningProcess $_.Id -ErrorAction SilentlyContinue } | Select-Object -First 1 -ExpandProperty LocalPort"
+        "$p | ForEach-Object { Get-NetTCPConnection -OwningProcess $_.Id -ErrorAction SilentlyContinue } | Select-Object -First 1 -ExpandProperty LocalPort"
         "\"";
 
     FILE *fp = _popen(cmd, "r");
