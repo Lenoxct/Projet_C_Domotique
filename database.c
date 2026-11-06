@@ -292,18 +292,19 @@ int database_open(database_t **out, const char *database_path,
 char *database_list_devices(database_t *database, char *error,
                             size_t error_size) {
   static const char query[] =
-      "SELECT type, id, description, etat, localisation FROM ("
+      "SELECT type, id, description, etat, localisation, mode FROM ("
       "SELECT 0 AS type, d.id, d.description, d.etat, l.description AS "
-      "localisation FROM climatisations d JOIN localisations l ON "
+      "localisation, d.mode FROM climatisations d JOIN localisations l ON "
       "l.id = d.localisation_id "
       "UNION ALL "
-      "SELECT 1, d.id, d.description, d.etat, l.description FROM luminaires d "
+      "SELECT 1, d.id, d.description, d.etat, l.description, NULL "
+      "FROM luminaires d "
       "JOIN localisations l ON l.id = d.localisation_id "
       "UNION ALL "
-      "SELECT 2, d.id, d.description, d.etat, l.description FROM prises d "
+      "SELECT 2, d.id, d.description, d.etat, l.description, NULL FROM prises d "
       "JOIN localisations l ON l.id = d.localisation_id "
       "UNION ALL "
-      "SELECT 3, d.id, d.description, d.etat, l.description FROM volets d "
+      "SELECT 3, d.id, d.description, d.etat, l.description, NULL FROM volets d "
       "JOIN localisations l ON l.id = d.localisation_id) "
       "ORDER BY localisation, type, description";
   struct string_builder builder = {0};
@@ -335,6 +336,11 @@ char *database_list_devices(database_t *database, char *error,
         !builder_append(&builder, ",\"location\":") ||
         !builder_append_json_string(
             &builder, sqlite3_column_text(statement, 4)) ||
+        !builder_append(&builder, ",\"mode\":") ||
+        (sqlite3_column_type(statement, 5) == SQLITE_NULL
+             ? !builder_append(&builder, "null")
+             : !builder_append(&builder, "%d",
+                               sqlite3_column_int(statement, 5))) ||
         !builder_append(&builder, "}")) {
       set_error(error, error_size, "Mémoire insuffisante pour les équipements.");
       sqlite3_finalize(statement);
@@ -486,8 +492,8 @@ int database_get_device_endpoint(database_t *database, int type, int id,
   return 1;
 }
 
-int database_set_device_state(database_t *database, int type, int id,
-                              int is_on, char *error, size_t error_size) {
+int database_set_device_state(database_t *database, int type, int id, int is_on,
+                              int mode, char *error, size_t error_size) {
   static const char *const tables[] = {"climatisations", "luminaires", "prises",
                                        "volets"};
   char query[192];
@@ -495,20 +501,34 @@ int database_set_device_state(database_t *database, int type, int id,
   int result;
 
   if (type < 0 || type >= (int)(sizeof(tables) / sizeof(tables[0])) || id <= 0 ||
-      (is_on != 0 && is_on != 1)) {
+      (is_on != 0 && is_on != 1) ||
+      (type == 0 && mode != 0 && mode != 1) ||
+      (type != 0 && mode != -1)) {
     set_error(error, error_size, "Commande d'équipement invalide.");
     return 0;
   }
-  snprintf(query, sizeof(query),
-           "UPDATE %s SET etat = ? WHERE id = ? "
-           "AND etat IN ('allumé', 'éteint')",
-           tables[type]);
+  if (type == 0) {
+    snprintf(query, sizeof(query),
+             "UPDATE %s SET etat = ?, mode = ? WHERE id = ? "
+             "AND etat IN ('allumé', 'éteint')",
+             tables[type]);
+  } else {
+    snprintf(query, sizeof(query),
+             "UPDATE %s SET etat = ? WHERE id = ? "
+             "AND etat IN ('allumé', 'éteint')",
+             tables[type]);
+  }
   result = sqlite3_prepare_v2(database->connection, query, -1, &statement, NULL);
   if (result == SQLITE_OK) {
     result = sqlite3_bind_text(statement, 1, is_on ? "allumé" : "éteint", -1,
                                SQLITE_TRANSIENT);
   }
-  if (result == SQLITE_OK) {
+  if (result == SQLITE_OK && type == 0) {
+    result = sqlite3_bind_int(statement, 2, mode);
+    if (result == SQLITE_OK) {
+      result = sqlite3_bind_int(statement, 3, id);
+    }
+  } else if (result == SQLITE_OK) {
     result = sqlite3_bind_int(statement, 2, id);
   }
   if (result == SQLITE_OK) {

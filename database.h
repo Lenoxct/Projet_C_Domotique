@@ -17,8 +17,8 @@ int database_get_device_endpoint(database_t *database, int type, int id,
                                  char *ip, size_t ip_size, char *input,
                                  size_t input_size, char *error,
                                  size_t error_size);
-int database_set_device_state(database_t *database, int type, int id,
-                              int is_on, char *error, size_t error_size);
+int database_set_device_state(database_t *database, int type, int id, int is_on,
+                              int mode, char *error, size_t error_size);
 void database_close(database_t *database);
 
 #endif

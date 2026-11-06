@@ -267,29 +267,48 @@
                 actions.className = "device-actions";
                 const state = document.createElement("span");
                 state.className = `device-state ${device.state === "en panne" ? "failed" : ""}`;
-                state.textContent = device.state;
-                const button = document.createElement("button");
-                button.className = "state-button";
-                button.type = "button";
-                button.textContent = device.state === "allumé" ? "Éteindre" : "Allumer";
-                button.disabled = device.state === "en panne" || !serverConnected;
-                button.title = device.state === "en panne"
-                    ? "Cet équipement est indiqué en panne."
-                    : serverConnected
-                        ? "Envoie la commande à SimDom et actualise l'état dans la base locale."
-                        : "Connecte-toi au serveur SimDom pour piloter cet équipement.";
-                button.addEventListener("click", () => changeDeviceState(device));
-                actions.append(state, button);
+                state.textContent = device.type === 0
+                    ? `${device.state} · ${device.mode === 1 ? "chauffage" : "climatisation"}`
+                    : device.state;
+                actions.append(state);
+                if (device.type === 0) {
+                    actions.append(
+                        createDeviceButton(device, "Climatisation", true, 0),
+                        createDeviceButton(device, "Chauffage", true, 1),
+                        createDeviceButton(device, "Éteindre", false, device.mode)
+                    );
+                } else {
+                    actions.append(createDeviceButton(
+                        device,
+                        device.state === "allumé" ? "Éteindre" : "Allumer",
+                        device.state !== "allumé",
+                        -1
+                    ));
+                }
                 card.append(details, actions);
                 list.append(card);
             });
         }
 
-        async function changeDeviceState(device) {
+        function createDeviceButton(device, label, isOn, mode) {
+            const button = document.createElement("button");
+            button.className = "state-button";
+            button.type = "button";
+            button.textContent = label;
+            button.disabled = device.state === "en panne" || !serverConnected;
+            button.title = device.state === "en panne"
+                ? "Cet équipement est indiqué en panne."
+                : serverConnected
+                    ? "Envoie la commande à SimDom et actualise l'état dans la base locale."
+                    : "Connecte-toi au serveur SimDom pour piloter cet équipement.";
+            button.addEventListener("click", () => changeDeviceState(device, isOn, mode));
+            return button;
+        }
+
+        async function changeDeviceState(device, isOn, mode) {
             const status = document.getElementById("database-status");
-            const isOn = device.state !== "allumé";
             try {
-                await setDeviceState(device.type, device.id, Number(isOn));
+                await setDeviceState(device.type, device.id, Number(isOn), mode);
                 await loadDevices();
             } catch (error) {
                 try {

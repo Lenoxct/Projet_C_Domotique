@@ -14,7 +14,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(webview)
 
 add_executable(domotique WIN32)
-target_sources(domotique PRIVATE main.c database.c sqlite3.c)
+target_sources(domotique PRIVATE main.c database.c simdom_protocol.c sqlite3.c)
 target_include_directories(domotique PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 target_compile_definitions(domotique PRIVATE SQLITE_THREADSAFE=1)
 target_link_libraries(domotique PRIVATE webview::core_static ws2_32)

@@ -1,5 +1,6 @@
 #include "webview/webview.h"
 #include "database.h"
+#include "simdom_protocol.h"
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -92,7 +93,7 @@ static int parse_json_integer(const char **text, int *value) {
 }
 
 static int parse_device_request(const char *request, int *type, int *device_id,
-                                int *is_on) {
+                                int *is_on, int *mode) {
   const char *text = skip_json_whitespace(request);
 
   if (*text++ != '[' || !parse_json_integer(&text, type)) {
@@ -104,6 +105,10 @@ static int parse_device_request(const char *request, int *type, int *device_id,
   }
   text = skip_json_whitespace(text);
   if (*text++ != ',' || !parse_json_integer(&text, is_on)) {
+    return 0;
+  }
+  text = skip_json_whitespace(text);
+  if (*text++ != ',' || !parse_json_integer(&text, mode)) {
     return 0;
   }
   text = skip_json_whitespace(text);
@@ -332,19 +337,21 @@ static void set_device_state(const char *id, const char *request,
   char database_error[512] = {0};
   char actuator_ip[16];
   char actuator_input[9];
-  struct in_addr actuator_address;
   SOCKET command_socket;
-  unsigned char payload[13];
+  unsigned char payload[SIMDOM_PAYLOAD_MAX_SIZE];
+  size_t payload_size;
   int type;
   int device_id;
   int is_on;
-  int i;
+  int mode;
   int sent = 0;
 
-  if (!parse_device_request(request, &type, &device_id, &is_on) ||
+  if (!parse_device_request(request, &type, &device_id, &is_on, &mode) ||
       type < 0 ||
       type >= (int)(sizeof(device_tables) / sizeof(device_tables[0])) ||
-      (is_on != 0 && is_on != 1)) {
+      (is_on != 0 && is_on != 1) ||
+      (type == 0 && mode != 0 && mode != 1) ||
+      (type != 0 && mode != -1)) {
     report_binding_error(state->window, id, "Paramètres d'équipement invalides.");
     return;
   }
@@ -360,21 +367,12 @@ static void set_device_state(const char *id, const char *request,
     report_binding_error(state->window, id, error);
     return;
   }
-  if (InetPtonA(AF_INET, actuator_ip, &actuator_address) != 1) {
+  if (!simdom_build_payload(actuator_ip, actuator_input, type, is_on, mode,
+                            payload, &payload_size)) {
     report_binding_error(state->window, id,
-                         "L'adresse de l'automate est invalide dans la base.");
+                         "Paramètres de trame SimDom invalides.");
     return;
   }
-  memcpy(payload, &actuator_address.s_addr, 4);
-  for (i = 0; i < 8; i++) {
-    if (actuator_input[i] != '0' && actuator_input[i] != '1') {
-      report_binding_error(state->window, id,
-                           "L'entrée de l'automate est invalide dans la base.");
-      return;
-    }
-    payload[4 + i] = (unsigned char)(actuator_input[i] - '0');
-  }
-  payload[12] = (unsigned char)is_on;
   command_socket = open_server_socket(state->server_host, state->server_port,
                                       error, sizeof(error));
   if (command_socket == INVALID_SOCKET) {
@@ -382,9 +380,9 @@ static void set_device_state(const char *id, const char *request,
     report_binding_error(state->window, id, error);
     return;
   }
-  while (sent < (int)sizeof(payload)) {
+  while (sent < (int)payload_size) {
     int result = send(command_socket, (const char *)payload + sent,
-                      (int)sizeof(payload) - sent, 0);
+                      (int)payload_size - sent, 0);
     if (result == SOCKET_ERROR || result == 0) {
       int socket_error = WSAGetLastError();
       closesocket(command_socket);
@@ -398,7 +396,8 @@ static void set_device_state(const char *id, const char *request,
   }
   closesocket(command_socket);
   if (!database_set_device_state(state->database, type, device_id, is_on,
-                                 database_error, sizeof(database_error))) {
+                                 mode, database_error,
+                                 sizeof(database_error))) {
     snprintf(error, sizeof(error),
              "Commande envoyée à SimDom, mais la base locale n'a pas pu être "
              "mise à jour: %.400s",

@@ -438,6 +438,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\main.c" />
     <ClCompile Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\database.c" />
+    <ClCompile Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\simdom_protocol.c" />
     <ClCompile Include="C:\Fichier ESGI\Code\C\Projet_C_Domotique\sqlite3.c" />
   </ItemGroup>
   <ItemGroup />
