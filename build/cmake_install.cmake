@@ -1,4 +1,4 @@
-# Install script for directory: C:/Fichier ESGI/Code/C/Projet_C_Domotique
+# Install script for directory: C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
