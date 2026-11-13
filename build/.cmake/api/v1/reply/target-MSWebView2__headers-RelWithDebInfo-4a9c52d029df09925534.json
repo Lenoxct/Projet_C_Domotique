@@ -1,0 +1,71 @@
+{
+	"abstract" : true,
+	"backtrace" : 5,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"find_package",
+			"webview_find_dependencies",
+			"webview_init"
+		],
+		"files" : 
+		[
+			"build/_deps/webview-src/cmake/modules/FindMSWebView2.cmake",
+			"build/_deps/webview-src/cmake/webview.cmake",
+			"build/_deps/webview-src/cmake/internal.cmake",
+			"build/_deps/webview-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 12,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 161,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 74,
+				"parent" : 2
+			},
+			{
+				"file" : 0,
+				"parent" : 3
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 15,
+				"parent" : 4
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	},
+	"id" : "MSWebView2::headers::@a19bbed05a851ed3d805",
+	"imported" : true,
+	"local" : true,
+	"name" : "MSWebView2::headers",
+	"paths" : 
+	{
+		"build" : "_deps/webview-build",
+		"source" : "build/_deps/webview-src"
+	},
+	"sources" : [],
+	"type" : "INTERFACE_LIBRARY"
+}

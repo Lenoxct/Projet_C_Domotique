@@ -1,0 +1,53 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"build/_deps/webview-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "webview_core_shared::@48746d47efa01a0dbf4e"
+		},
+		{
+			"id" : "webview_core_static::@48746d47efa01a0dbf4e"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "ALL_BUILD::@a19bbed05a851ed3d805",
+	"isGeneratorProvided" : true,
+	"name" : "ALL_BUILD",
+	"orderDependencies" : 
+	[
+		{
+			"id" : "webview_core_shared::@48746d47efa01a0dbf4e"
+		},
+		{
+			"id" : "webview_core_static::@48746d47efa01a0dbf4e"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "_deps/webview-build",
+		"source" : "build/_deps/webview-src"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}
