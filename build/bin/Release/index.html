@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logiciel domotique</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- En-tête de l'application -->
+        <header>
+            <h1>Logiciel Domotique</h1>
+        </header>
+
+        <div class="menu-grid">
+
+            <!-- 1. Connexion au serveur -->
+            <a href="#" class="menu-card" onclick="showConnection(event)">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Connexion au serveur</h2>
+                </div>
+            </a>
+
+            <!-- 2. Pilotage du bâtiment -->
+            <a href="#" class="menu-card" onclick="showDevices(event)">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Pilotage du bâtiment</h2>
+                </div>
+            </a>
+
+            <!-- 3. Gestion des scénarios -->
+            <a href="#" class="menu-card" onclick="handleClick(event, 'Gestion des scénarios')">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Gestion des scénarios</h2>
+                </div>
+            </a>
+
+            <!-- 4. Pilotage des caméras -->
+            <a href="#" class="menu-card" onclick="handleClick(event, 'Pilotage des caméras')">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Pilotage des caméras</h2>
+                </div>
+            </a>
+
+            <!-- 5. Mosaïque de caméras -->
+            <a href="#" class="menu-card" onclick="handleClick(event, 'Mosaïque de caméras')">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Mosaïque de caméras</h2>
+                </div>
+            </a>
+
+            <!-- 6. Statistiques -->
+            <a href="#" class="menu-card" onclick="handleClick(event, 'Statistiques')">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Statistiques</h2>
+                </div>
+            </a>
+
+            <!-- 7. Configuration de l'application -->
+            <a href="#" class="menu-card" onclick="handleClick(event, 'Configuration de l\'application')">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Configuration de l'application</h2>
+                </div>
+            </a>
+
+            <!-- 8. Manuel utilisateur -->
+            <a href="#" class="menu-card" onclick="handleClick(event, 'Manuel utilisateur')">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Manuel utilisateur</h2>
+                </div>
+            </a>
+
+            <!-- 9. À propos -->
+            <a href="#" class="menu-card" onclick="handleClick(event, 'À propos')">
+                <div class="image-placeholder" title="Espace réservé pour image">
+                    <span class="placeholder-text">Photo</span>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">À propos</h2>
+                </div>
+            </a>
+
+        </div>
+
+        <section id="server-panel" class="device-panel connection-panel" hidden>
+            <div class="panel-heading">
+                <div>
+                    <h2>Connexion au serveur SimDom</h2>
+                    <p>Les paramètres de connexion sont enregistrés dans la base locale.</p>
+                </div>
+                <button class="secondary-button" type="button" onclick="hidePanels()">Retour au menu</button>
+            </div>
+            <form id="server-form" onsubmit="connectToServer(event)">
+                <label for="server-host">Adresse IPv4 du serveur</label>
+                <input id="server-host" name="host" type="text" inputmode="decimal"
+                       placeholder="172.21.16.1" value="172.21.16.1"
+                       pattern="([0-9]{1,3}\.){3}[0-9]{1,3}" required>
+                <label for="server-port">Port TCP</label>
+                <input id="server-port" name="port" type="number" min="1" max="65535"
+                       value="53084" required>
+                <button class="state-button" type="submit">Se connecter</button>
+            </form>
+            <p id="connection-status" class="database-status" role="status">Non connecté.</p>
+        </section>
+
+        <section id="device-panel" class="device-panel" hidden>
+            <div class="panel-heading">
+                <div>
+                    <h2>Équipements du bâtiment</h2>
+                    <p>Les changements sont envoyés à SimDom puis enregistrés dans la base locale.</p>
+                </div>
+                <button class="secondary-button" type="button" onclick="hidePanels()">Retour au menu</button>
+            </div>
+            <div class="device-toolbar">
+                <label for="location-filter">Pièce / emplacement</label>
+                <select id="location-filter" onchange="renderDevices()">
+                    <option value="">Tous les emplacements</option>
+                </select>
+                <button class="secondary-button" type="button" onclick="loadDevices()">Rafraîchir</button>
+            </div>
+            <p id="database-status" class="database-status" role="status">Chargement des équipements…</p>
+            <div id="device-list" class="device-list"></div>
+        </section>
+    </div>
+
+    <script>
+        let devices = [];
+        let serverConnected = false;
+        const deviceTypes = ["Climatisation", "Luminaire", "Prise", "Volet"];
+
+        function handleClick(event, sectionTitle) {
+            event.preventDefault();
+            console.log("Navigation vers : " + sectionTitle);
+        }
+
+        async function showConnection(event) {
+            event.preventDefault();
+            document.querySelector(".menu-grid").hidden = true;
+            document.getElementById("device-panel").hidden = true;
+            document.getElementById("server-panel").hidden = false;
+            const status = document.getElementById("connection-status");
+            if (typeof window.getServerConfig !== "function") {
+                status.textContent =
+                    "La connexion au serveur est accessible uniquement depuis l'application domotique compilée (domotique.exe).";
+                return;
+            }
+            try {
+                const config = await getServerConfig();
+                if (config.host) document.getElementById("server-host").value = config.host;
+                document.getElementById("server-port").value = config.port;
+                serverConnected = await getServerStatus();
+                status.textContent = serverConnected
+                    ? `Serveur joignable à ${config.host}:${config.port}.`
+                    : "Non connecté.";
+            } catch (error) {
+                status.textContent = `Impossible de lire la configuration : ${error.message || error}`;
+            }
+        }
+
+        function hidePanels() {
+            document.getElementById("device-panel").hidden = true;
+            document.getElementById("server-panel").hidden = true;
+            document.querySelector(".menu-grid").hidden = false;
+        }
+
+        async function connectToServer(event) {
+            event.preventDefault();
+            const host = document.getElementById("server-host").value.trim();
+            const port = Number(document.getElementById("server-port").value);
+            const status = document.getElementById("connection-status");
+            status.textContent = `Connexion à ${host}:${port}…`;
+            try {
+                await connectServer(host, port);
+                serverConnected = true;
+                status.textContent = `Serveur joignable à ${host}:${port}. Les commandes seront envoyées à SimDom.`;
+            } catch (error) {
+                serverConnected = false;
+                status.textContent = `Connexion échouée : ${error.message || error}`;
+            }
+        }
+
+        async function showDevices(event) {
+            event.preventDefault();
+            document.querySelector(".menu-grid").hidden = true;
+            document.getElementById("server-panel").hidden = true;
+            document.getElementById("device-panel").hidden = false;
+            if (typeof window.listDevices !== "function") {
+                document.getElementById("database-status").textContent =
+                    "La base de données est accessible uniquement depuis l'application domotique compilée (domotique.exe).";
+                return;
+            }
+            await loadDevices();
+        }
+
+        async function loadDevices() {
+            const status = document.getElementById("database-status");
+            if (typeof window.listDevices !== "function") {
+                status.textContent =
+                    "Connexion à SQLite indisponible : ouvre l'application domotique compilée (domotique.exe), pas index.html dans le navigateur.";
+                return;
+            }
+            status.textContent = "Chargement des équipements…";
+            try {
+                serverConnected = await getServerStatus();
+                devices = await listDevices();
+                const locations = [...new Set(devices.map(device => device.location))];
+                const filter = document.getElementById("location-filter");
+                const selectedLocation = filter.value;
+                filter.replaceChildren(new Option("Tous les emplacements", ""));
+                locations.forEach(location => filter.add(new Option(location, location)));
+                if (locations.includes(selectedLocation)) filter.value = selectedLocation;
+                renderDevices();
+                status.textContent = serverConnected
+                    ? `${devices.length} équipements chargés. Les commandes seront envoyées à SimDom.`
+                    : `${devices.length} équipements chargés depuis la base. Connecte-toi au serveur pour les piloter.`;
+            } catch (error) {
+                status.textContent = `Erreur de lecture de la base : ${error.message || error}`;
+                document.getElementById("device-list").replaceChildren();
+            }
+        }
+
+        function renderDevices() {
+            const selectedLocation = document.getElementById("location-filter").value;
+            const list = document.getElementById("device-list");
+            const visibleDevices = devices.filter(device =>
+                !selectedLocation || device.location === selectedLocation
+            );
+            list.replaceChildren();
+
+            visibleDevices.forEach(device => {
+                const card = document.createElement("article");
+                card.className = "device-card";
+                const details = document.createElement("div");
+                const name = document.createElement("h3");
+                name.textContent = device.description;
+                const info = document.createElement("p");
+                info.textContent = `${deviceTypes[device.type]} · ${device.location}`;
+                details.append(name, info);
+
+                const actions = document.createElement("div");
+                actions.className = "device-actions";
+                const state = document.createElement("span");
+                state.className = `device-state ${device.state === "en panne" ? "failed" : ""}`;
+                state.textContent = device.type === 0
+                    ? `${device.state} · ${device.mode === 1 ? "chauffage" : "climatisation"}`
+                    : device.state;
+                actions.append(state);
+                if (device.type === 0) {
+                    actions.append(
+                        createDeviceButton(device, "Climatisation", true, 0),
+                        createDeviceButton(device, "Chauffage", true, 1),
+                        createDeviceButton(device, "Éteindre", false, device.mode)
+                    );
+                } else {
+                    actions.append(createDeviceButton(
+                        device,
+                        device.state === "allumé" ? "Éteindre" : "Allumer",
+                        device.state !== "allumé",
+                        -1
+                    ));
+                }
+                card.append(details, actions);
+                list.append(card);
+            });
+        }
+
+        function createDeviceButton(device, label, isOn, mode) {
+            const button = document.createElement("button");
+            button.className = "state-button";
+            button.type = "button";
+            button.textContent = label;
+            button.disabled = device.state === "en panne" || !serverConnected;
+            button.title = device.state === "en panne"
+                ? "Cet équipement est indiqué en panne."
+                : serverConnected
+                    ? "Envoie la commande à SimDom et actualise l'état dans la base locale."
+                    : "Connecte-toi au serveur SimDom pour piloter cet équipement.";
+            button.addEventListener("click", () => changeDeviceState(device, isOn, mode));
+            return button;
+        }
+
+        async function changeDeviceState(device, isOn, mode) {
+            const status = document.getElementById("database-status");
+            try {
+                await setDeviceState(device.type, device.id, Number(isOn), mode);
+                await loadDevices();
+            } catch (error) {
+                try {
+                    serverConnected = await getServerStatus();
+                    renderDevices();
+                } catch (statusError) {
+                    console.error("Impossible de vérifier la connexion au serveur.", statusError);
+                }
+                status.textContent = `Erreur de mise à jour : ${error.message || error}`;
+            }
+        }
+    </script>
+</body>
+</html>
