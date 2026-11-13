@@ -37,7 +37,7 @@
             </a>
 
             <!-- 3. Gestion des scénarios -->
-            <a href="#" class="menu-card" onclick="handleClick(event, 'Gestion des scénarios')">
+            <a href="#" class="menu-card" onclick="showScenarios(event)">
                 <div class="image-placeholder" title="Espace réservé pour image">
                     <span class="placeholder-text">Photo</span>
                 </div>
@@ -147,12 +147,110 @@
             <p id="database-status" class="database-status" role="status">Chargement des équipements…</p>
             <div id="device-list" class="device-list"></div>
         </section>
+
+        <section id="scenario-panel" class="device-panel" hidden>
+            <div class="panel-heading">
+                <div>
+                    <h2>Scénarios du matin</h2>
+                    <p>Chaque scénario s’exécute sur une heure à partir de son lancement.</p>
+                </div>
+                <button class="secondary-button" type="button" onclick="hidePanels()">Retour au menu</button>
+            </div>
+            <p id="scenario-status" class="database-status" role="status">
+                Charge les équipements pour préparer les scénarios.
+            </p>
+            <div class="device-list">
+                <article class="device-card">
+                    <div>
+                        <h3>1 personne — Réveil et petit-déjeuner</h3>
+                        <p>Salle de bain de la suite parentale, puis éclairage de la cuisine.</p>
+                        <p>Étapes prévues : 0, 8, 18, 30, 40, 50 et 60 min.</p>
+                    </div>
+                    <div class="device-actions">
+                        <button class="state-button" type="button" data-scenario-button
+                                onclick="startScenario('one')">Lancer</button>
+                    </div>
+                </article>
+                <article class="device-card">
+                    <div>
+                        <h3>2 personnes — Réveil décalé</h3>
+                        <p>Suite parentale et chambre invités, puis cuisine et salle à manger.</p>
+                        <p>Étapes prévues : 0, 8, 18, 28, 38, 48, 54 et 60 min.</p>
+                    </div>
+                    <div class="device-actions">
+                        <button class="state-button" type="button" data-scenario-button
+                                onclick="startScenario('two')">Lancer</button>
+                    </div>
+                </article>
+                <article class="device-card">
+                    <div>
+                        <h3>3 personnes — Matin familial</h3>
+                        <p>Suite parentale, deux chambres, puis cuisine et salle à manger.</p>
+                        <p>Étapes prévues : 0, 8, 16, 24, 32, 40, 50 et 60 min.</p>
+                    </div>
+                    <div class="device-actions">
+                        <button class="state-button" type="button" data-scenario-button
+                                onclick="startScenario('three')">Lancer</button>
+                    </div>
+                </article>
+            </div>
+            <button id="stop-scenario-button" class="secondary-button" type="button"
+                    onclick="cancelScenario()" hidden>Arrêter le scénario</button>
+        </section>
     </div>
 
     <script>
         let devices = [];
         let serverConnected = false;
+        let activeScenario = null;
         const deviceTypes = ["Climatisation", "Luminaire", "Prise", "Volet"];
+        const scenarios = {
+            one: {
+                name: "Scénario — 1 personne",
+                actions: [
+                    { minute: 0, description: "Suite parentale - Salle de bain et dressing - Luminaire entrée salle de bain", isOn: true },
+                    { minute: 8, description: "Suite parentale - Salle de bain et dressing - Luminaire salle de bain central", isOn: true },
+                    { minute: 18, description: "Cuisine - Luminaire entrée", isOn: true },
+                    { minute: 30, description: "Cuisine - Luminaire îlot central", isOn: true },
+                    { minute: 40, description: "Suite parentale - Salle de bain et dressing - Luminaire entrée salle de bain", isOn: false },
+                    { minute: 50, description: "Cuisine - Luminaire entrée", isOn: false },
+                    { minute: 60, description: "Suite parentale - Salle de bain et dressing - Luminaire salle de bain central", isOn: false },
+                    { minute: 60, description: "Cuisine - Luminaire îlot central", isOn: false }
+                ]
+            },
+            two: {
+                name: "Scénario — 2 personnes",
+                actions: [
+                    { minute: 0, description: "Suite parentale - Salle de bain et dressing - Luminaire entrée salle de bain", isOn: true },
+                    { minute: 8, description: "Chambre invités - Salle de bain et dressing - Luminaire central salle de bain", isOn: true },
+                    { minute: 18, description: "Cuisine - Luminaire entrée", isOn: true },
+                    { minute: 28, description: "Cuisine - Luminaire îlot central", isOn: true },
+                    { minute: 38, description: "Salle à manger - Luminaire central", isOn: true },
+                    { minute: 48, description: "Suite parentale - Salle de bain et dressing - Luminaire entrée salle de bain", isOn: false },
+                    { minute: 48, description: "Chambre invités - Salle de bain et dressing - Luminaire central salle de bain", isOn: false },
+                    { minute: 54, description: "Cuisine - Luminaire entrée", isOn: false },
+                    { minute: 60, description: "Cuisine - Luminaire îlot central", isOn: false },
+                    { minute: 60, description: "Salle à manger - Luminaire central", isOn: false }
+                ]
+            },
+            three: {
+                name: "Scénario — 3 personnes",
+                actions: [
+                    { minute: 0, description: "Suite parentale - Salle de bain et dressing - Luminaire entrée salle de bain", isOn: true },
+                    { minute: 8, description: "Chambre nord est - Luminaire central", isOn: true },
+                    { minute: 16, description: "Chambre sud est - Luminaire central", isOn: true },
+                    { minute: 24, description: "Cuisine - Luminaire entrée", isOn: true },
+                    { minute: 32, description: "Cuisine - Luminaire îlot central", isOn: true },
+                    { minute: 40, description: "Salle à manger - Luminaire central", isOn: true },
+                    { minute: 50, description: "Chambre nord est - Luminaire central", isOn: false },
+                    { minute: 50, description: "Chambre sud est - Luminaire central", isOn: false },
+                    { minute: 60, description: "Suite parentale - Salle de bain et dressing - Luminaire entrée salle de bain", isOn: false },
+                    { minute: 60, description: "Cuisine - Luminaire entrée", isOn: false },
+                    { minute: 60, description: "Cuisine - Luminaire îlot central", isOn: false },
+                    { minute: 60, description: "Salle à manger - Luminaire central", isOn: false }
+                ]
+            }
+        };
 
         function handleClick(event, sectionTitle) {
             event.preventDefault();
@@ -163,6 +261,7 @@
             event.preventDefault();
             document.querySelector(".menu-grid").hidden = true;
             document.getElementById("device-panel").hidden = true;
+            document.getElementById("scenario-panel").hidden = true;
             document.getElementById("server-panel").hidden = false;
             const status = document.getElementById("connection-status");
             if (typeof window.getServerConfig !== "function") {
@@ -184,8 +283,10 @@
         }
 
         function hidePanels() {
+            cancelScenario();
             document.getElementById("device-panel").hidden = true;
             document.getElementById("server-panel").hidden = true;
+            document.getElementById("scenario-panel").hidden = true;
             document.querySelector(".menu-grid").hidden = false;
         }
 
@@ -209,6 +310,7 @@
             event.preventDefault();
             document.querySelector(".menu-grid").hidden = true;
             document.getElementById("server-panel").hidden = true;
+            document.getElementById("scenario-panel").hidden = true;
             document.getElementById("device-panel").hidden = false;
             if (typeof window.listDevices !== "function") {
                 document.getElementById("database-status").textContent =
@@ -216,6 +318,170 @@
                 return;
             }
             await loadDevices();
+        }
+
+        async function showScenarios(event) {
+            event.preventDefault();
+            document.querySelector(".menu-grid").hidden = true;
+            document.getElementById("server-panel").hidden = true;
+            document.getElementById("device-panel").hidden = true;
+            document.getElementById("scenario-panel").hidden = false;
+
+            const status = document.getElementById("scenario-status");
+            if (typeof window.listDevices !== "function" ||
+                typeof window.getServerStatus !== "function" ||
+                typeof window.setDeviceState !== "function") {
+                serverConnected = false;
+                devices = [];
+                status.textContent =
+                    "Les scénarios sont accessibles uniquement depuis l’application compilée (domotique.exe).";
+                updateScenarioControls();
+                return;
+            }
+
+            status.textContent = "Chargement des équipements…";
+            try {
+                serverConnected = await getServerStatus();
+                devices = [];
+                devices = await listDevices();
+                status.textContent = serverConnected
+                    ? `${devices.length} équipements chargés. Choisis un scénario à lancer.`
+                    : `${devices.length} équipements chargés. Connecte-toi au serveur SimDom avant de lancer un scénario.`;
+            } catch (error) {
+                serverConnected = false;
+                devices = [];
+                status.textContent = `Impossible de préparer les scénarios : ${error.message || error}`;
+            }
+            updateScenarioControls();
+        }
+
+        function updateScenarioControls() {
+            const canStart = serverConnected &&
+                typeof window.setDeviceState === "function" &&
+                devices.length > 0 &&
+                activeScenario === null;
+            document.querySelectorAll("[data-scenario-button]").forEach(button => {
+                button.disabled = !canStart;
+            });
+            document.getElementById("stop-scenario-button").hidden = activeScenario === null;
+        }
+
+        function resolveScenarioActions(scenario) {
+            return scenario.actions.map(action => {
+                const matches = devices.filter(device =>
+                    device.type === 1 && device.description === action.description
+                );
+                if (matches.length !== 1) {
+                    throw new Error(
+                        matches.length === 0
+                            ? `Équipement introuvable : ${action.description}.`
+                            : `Plusieurs équipements correspondent à : ${action.description}.`
+                    );
+                }
+                if (matches[0].state === "en panne") {
+                    throw new Error(`L’équipement est en panne : ${action.description}.`);
+                }
+                return { ...action, device: matches[0] };
+            });
+        }
+
+        function waitForScenario(run, delay) {
+            return new Promise(resolve => {
+                run.resolveWait = resolve;
+                run.timer = setTimeout(() => {
+                    run.timer = null;
+                    run.resolveWait = null;
+                    resolve(!run.cancelled);
+                }, delay);
+            });
+        }
+
+        async function startScenario(scenarioId) {
+            if (activeScenario !== null) return;
+            const scenario = scenarios[scenarioId];
+            if (!scenario) {
+                document.getElementById("scenario-status").textContent =
+                    "Scénario inconnu.";
+                return;
+            }
+
+            const run = { cancelled: false, timer: null, resolveWait: null };
+            activeScenario = run;
+            updateScenarioControls();
+            const status = document.getElementById("scenario-status");
+            status.textContent = "Vérification de la connexion et des équipements…";
+
+            try {
+                if (typeof window.getServerStatus !== "function" ||
+                    typeof window.listDevices !== "function" ||
+                    typeof window.setDeviceState !== "function") {
+                    throw new Error("Ouvre l’application compilée (domotique.exe) pour lancer un scénario.");
+                }
+                serverConnected = await getServerStatus();
+                if (run.cancelled) return;
+                if (!serverConnected) {
+                    throw new Error("Connecte-toi au serveur SimDom avant de lancer un scénario.");
+                }
+                devices = [];
+                devices = await listDevices();
+                if (run.cancelled) return;
+                const actions = resolveScenarioActions(scenario);
+                run.startedAt = Date.now();
+                status.textContent = `${scenario.name} démarré.`;
+
+                for (let index = 0; index < actions.length; index++) {
+                    const action = actions[index];
+                    const targetTime = run.startedAt + action.minute * 60 * 1000;
+                    const delay = Math.max(0, targetTime - Date.now());
+                    if (delay > 0 && !(await waitForScenario(run, delay))) return;
+                    if (run.cancelled) return;
+
+                    status.textContent =
+                        `${scenario.name} — étape ${index + 1}/${actions.length}, minute ${action.minute} : ` +
+                        `${action.isOn ? "allumage" : "extinction"} de ${action.description}.`;
+                    await setDeviceState(action.device.type, action.device.id, Number(action.isOn), -1);
+                    if (run.cancelled) return;
+                    action.device.state = action.isOn ? "allumé" : "éteint";
+                }
+                status.textContent = `${scenario.name} terminé après une heure.`;
+            } catch (error) {
+                if (!run.cancelled) {
+                    if (typeof window.getServerStatus === "function") {
+                        try {
+                            serverConnected = await getServerStatus();
+                        } catch (statusError) {
+                            serverConnected = false;
+                            console.error("Impossible de vérifier la connexion au serveur.", statusError);
+                        }
+                    } else {
+                        serverConnected = false;
+                    }
+                    if (run.cancelled) return;
+                    status.textContent = `Scénario interrompu : ${error.message || error}`;
+                }
+            } finally {
+                if (activeScenario === run) {
+                    activeScenario = null;
+                    updateScenarioControls();
+                }
+            }
+        }
+
+        function cancelScenario() {
+            const run = activeScenario;
+            if (run === null) return;
+            run.cancelled = true;
+            if (run.timer !== null) {
+                clearTimeout(run.timer);
+                run.timer = null;
+            }
+            if (run.resolveWait !== null) {
+                const resolveWait = run.resolveWait;
+                run.resolveWait = null;
+                resolveWait(false);
+            }
+            document.getElementById("scenario-status").textContent =
+                "Arrêt du scénario demandé. Une commande déjà en cours peut encore se terminer.";
         }
 
         async function loadDevices() {
