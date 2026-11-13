@@ -6,22 +6,22 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-src")
-  file(MAKE_DIRECTORY "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-src")
+if(NOT EXISTS "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-src")
+  file(MAKE_DIRECTORY "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-src")
 endif()
 file(MAKE_DIRECTORY
-  "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-build"
-  "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix"
-  "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/tmp"
-  "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp"
-  "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src"
-  "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp"
+  "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-build"
+  "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix"
+  "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/tmp"
+  "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp"
+  "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src"
+  "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp"
 )
 
-set(configSubDirs Debug)
+set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp${cfgdir}") # cfgdir has leading slash
 endif()

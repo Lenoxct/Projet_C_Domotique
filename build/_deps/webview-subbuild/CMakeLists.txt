@@ -19,17 +19,17 @@ project(webview-populate NONE)
 # Pass through things we've already detected in the main project to avoid
 # paying the cost of redetecting them again in ExternalProject_Add()
 set(GIT_EXECUTABLE [==[C:/Program Files/Git/cmd/git.exe]==])
-set(Git_VERSION [==[2.56.0.windows.4]==])
+set(Git_VERSION [==[2.51.2.windows.1]==])
 set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
-  [==[C:/Program Files/Git/cmd/git.exe;2.56.0.windows.4]==]
+  [==[C:/Program Files/Git/cmd/git.exe;2.51.2.windows.1]==]
 )
 
 
 include(ExternalProject)
 ExternalProject_Add(webview-populate
                      "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/webview/webview" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "0.12.0"
-                    SOURCE_DIR          "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/webview-src"
-                    BINARY_DIR          "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/webview-build"
+                    SOURCE_DIR          "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/webview-src"
+                    BINARY_DIR          "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/webview-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

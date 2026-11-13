@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/cmake_install.cmake"
+		"C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

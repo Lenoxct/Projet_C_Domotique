@@ -137,7 +137,7 @@ INSERT INTO "luminaires" ("id", "ip_automate", "entree_automate", "etat", "descr
 (6, '192.168.0.100', '01000011', 'éteint', 'Garages ouest - Hublot entrée ouest', 5, 200.0),
 (7, '192.168.0.100', '01000100', 'éteint', 'Terrasse - Hublot porte chambre invités', 2, 200.0),
 (8, '192.168.0.100', '01000101', 'éteint', 'Terrasse - Hublot porte cuisine', 2, 200.0),
-(9, '192.168.0.100', '01000110', 'éteint', 'Terrasse - Hublot cuisine d\'été', 1, 200.0),
+(9, '192.168.0.100', '01000110', 'éteint', 'Terrasse - Hublot cuisine d été', 1, 200.0),
 (10, '192.168.0.100', '01000111', 'éteint', 'Terrasse - Ensemble de spots immergés piscine', 4, 200.0),
 (11, '192.168.0.100', '01001000', 'éteint', 'Hall sud - Hublot ouest', 3, 200.0),
 (12, '192.168.0.100', '01001001', 'éteint', 'Hall sud - Hublot est', 3, 200.0),

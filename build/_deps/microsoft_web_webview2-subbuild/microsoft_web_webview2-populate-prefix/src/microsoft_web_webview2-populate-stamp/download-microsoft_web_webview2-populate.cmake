@@ -22,14 +22,14 @@ function(check_file_hash has_hash hash_is_good)
   set("${has_hash}" TRUE PARENT_SCOPE)
 
   message(VERBOSE "verifying file...
-       file='C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'")
+       file='C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'")
 
-  file("" "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar" actual_value)
+  file("" "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
     message(VERBOSE " hash of
-    C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar
+    C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar
   does not match expected value
     expected: ''
       actual: '${actual_value}'")
@@ -71,32 +71,32 @@ function(sleep_before_download attempt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
 
-if(EXISTS "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
+if(EXISTS "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
       message(VERBOSE "File already exists and hash match (skip download):
-  file='C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'
+  file='C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'
   =''"
       )
       return()
     else()
       message(VERBOSE "File already exists but hash mismatch. Removing...")
-      file(REMOVE "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
+      file(REMOVE "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
     endif()
   else()
     message(VERBOSE "File already exists but no hash specified (use URL_HASH):
-  file='C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'
+  file='C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'
 Old file will be removed and new file downloaded from URL."
     )
-    file(REMOVE "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
+    file(REMOVE "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
   endif()
 endif()
 
 set(retry_number 5)
 
 message(VERBOSE "Downloading...
-   dst='C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'
+   dst='C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar'
    timeout='none'
    inactivity timeout='none'"
 )
@@ -119,7 +119,7 @@ foreach(i RANGE ${retry_number})
 
       file(
         DOWNLOAD
-        "${url}" "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar"
+        "${url}" "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar"
         SHOW_PROGRESS
         # no TIMEOUT
         # no INACTIVITY_TIMEOUT
@@ -136,7 +136,7 @@ foreach(i RANGE ${retry_number})
         check_file_hash(has_hash hash_is_good)
         if(has_hash AND NOT hash_is_good)
           message(VERBOSE "Hash mismatch, removing...")
-          file(REMOVE "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
+          file(REMOVE "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/archive.tar")
         else()
           message(VERBOSE "Downloading... done")
           return()

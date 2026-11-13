@@ -20,8 +20,8 @@ project(microsoft_web_webview2-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(microsoft_web_webview2-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "FALSE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://www.nuget.org/api/v2/package/Microsoft.Web.WebView2/1.0.1150.38"
-                    SOURCE_DIR          "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-src"
-                    BINARY_DIR          "C:/Fichier ESGI/Code/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-build"
+                    SOURCE_DIR          "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-src"
+                    BINARY_DIR          "C:/Ecole/ESGI/deuxieme_annee/Programmation/C/Projet_C_Domotique/build/_deps/microsoft_web_webview2-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""
